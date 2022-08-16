@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthOtpController;
 use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::controller(ImageController::class)->group(function(){
     Route::get('/image-upload', 'index')->name('image.form');
     Route::post('/upload-image', 'storeImage')->name('image.store');
+});
+
+Route::controller(AuthOtpController::class)->group(function(){
+    Route::get('/otp/login', 'login')->name('otp.login');
+    Route::post('/otp/generate', 'generate')->name('otp.generate');
+    Route::get('/otp/verification/{user_id}', 'verification')->name('otp.verification');
+    Route::post('/otp/login', 'loginWithOtp')->name('otp.getlogin');
 });
